@@ -1,1 +1,1 @@
-# GLT4AS
+# Game-like Tutorials for Art Software
