@@ -12,7 +12,7 @@ class BlenderTutorial:
         self.filename = filename
 
         self.root = tk.Tk()
-        self.root.geometry("500x250+50+50")
+        self.root.geometry("500x300+50+50")
         self.root.title("Welcome to Blender")
         self.root.attributes('-topmost', 1)
 
@@ -51,6 +51,50 @@ class BlenderTutorial:
         elif (self.inst_count == 3):
               self.step_label.config(text = ts.instructions['i3'])
               self.inst_count +=1
+        
+        elif (self.inst_count == 4):
+              self.root.title("View Port Controls: Looking Around")
+              self.step_label.config(text = ts.instructions['i4'])
+              self.inst_count +=1
+        
+        elif (self.inst_count == 5):
+              self.step_label.config(text = ts.instructions['i5'])
+              self.inst_count +=1
+        
+        elif (self.inst_count == 6):
+              self.step_label.config(text = ts.instructions['i6'])
+              self.inst_count +=1
+        
+        elif (self.inst_count == 7):
+              self.root.title("View Port Controls: Orthographic views")
+              self.step_label.config(text = ts.instructions['i7'])
+              self.inst_count +=1
+        
+        elif (self.inst_count == 8):
+              self.root.title(" ")
+              self.step_label.config(text = ts.instructions['i8'])
+              self.inst_count +=1
+              
+        elif (self.inst_count == 9):
+              self.root.title("Adding Objects")
+              self.step_label.config(text = ts.instructions['i9'])
+              self.inst_count +=1
+              
+        elif (self.inst_count == 10):
+              self.step_label.config(text = ts.instructions['i10'])
+              self.inst_count +=1
+        
+        elif (self.inst_count == 11):
+            # 1. check if cube is added
+            if self.progress['1']:
+                #change text
+                self.step_label.config(text = ts.instructions['i11'])
+                self.inst_count +=1
+            else:
+                # popup a error message
+                print("didnt add cube") 
+                
+             
               
     #checks progress.txt        
     def onProgressChange(self):
@@ -63,11 +107,9 @@ class BlenderTutorial:
         #progress checks. keep repeating
         if (lastLine == "1_done"): 
             self.progress['1'] = True
-            self.step_label.config(text="Step 2")
 
         if (lastLine == "2_done"): 
             self.progress['2'] = True
-            self.step_label.config(text="Step 3")
 
     def showMessage(self, msg, title):
         messagebox.showinfo(title=title, message=msg)
