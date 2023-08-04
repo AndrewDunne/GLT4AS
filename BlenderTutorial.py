@@ -91,8 +91,14 @@ class BlenderTutorial:
                 self.step_label.config(text = ts.instructions['i11'])
                 self.inst_count +=1
             else:
-                # popup a error message
-                print("didnt add cube") 
+                # popup a error button
+                self.root.title(" ")
+                self.error_pop = Toplevel(self.root)
+                self.error_pop.geometry("100x60")
+                self.error_pop.config(bg ="red")
+                self.error_label = Label(self.error_pop, text="Add the object to continue!", bg="red", fg="white", wraplength=75, justify="center")
+                self.error_label.pack()
+                self.error_pop.pack()
                 
              
               
