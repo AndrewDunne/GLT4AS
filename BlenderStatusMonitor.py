@@ -21,13 +21,13 @@ class BlenderStatusMonitor:
         print("Timer Event")
         self.progress_file = open(self.filename, "a")
      
-        # ........ check status
-        #steps = [step1_result, step2_result]
-        
+        #check status
         step1_result = self.checkStep1()
-        step2_result = self.checkStep2()
+        print("step1 result is: " + step1_result)
         
+        step2_result = self.checkStep2()
         print("step1 result is: " + step2_result)
+        
         
         self.counter += 1
         if (self.counter >= self.max_count):
@@ -41,7 +41,7 @@ class BlenderStatusMonitor:
                 self.appendToFile(step2_result)
                 
             self.progress_file.close()
-            return 5.0
+            return 3.0
          
     def startMonitor(self):
         bpy.app.timers.register(self.onTimeHandler)
@@ -54,7 +54,7 @@ class BlenderStatusMonitor:
     
     #adding a cube check
     def checkStep1(self):
-        if !self.progress['1']:
+        if self.progress['1'] == False:
             for item in bpy.data.objects:
                 if item.name == 'Cube':
                     self.progress['1'] = True
@@ -65,18 +65,19 @@ class BlenderStatusMonitor:
     
     #moving with G check
     def checkStep2(self):
-        if self.progress['1'] and !self.progress['2']
-            if bpy.data.objects['Cube'].location.x != 0.0 or bpy.data.objects['Cube'].location.y != 0.0 or bpy.data.objects['Cube'].location.z != 0.0 :
+        if self.progress['1'] == True and self.progress['2'] == False:
+            print("false and tru checks work")
+            if bpy.data.objects['Cube'].location.x != 0.0 or bpy.data.objects['Cube'].location.y != 0.0 or bpy.data.objects['Cube'].location.z != 0.0:
                 self.progress['2'] = True
                 return "2_done"
             return ""
         else:
             return ""
    
-   def setStepTrue(self):
-       for step in self.progress:
-           step = True
-           return step + "_done"
+   #def setStepTrue(self):
+       #for step in self.progress:
+           #step = True
+           #return step + "_done"
        
 if __name__ == "__main__":
     BlenderStatusMonitor(10, "/users/vivian/Documents/blender/progress.txt") 
