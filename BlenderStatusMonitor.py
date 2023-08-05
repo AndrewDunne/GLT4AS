@@ -9,7 +9,8 @@ class BlenderStatusMonitor:
         
         self.progress = {
             '1': False,
-            '2': False
+            '2': False,
+            '3': False
         }
         
         # initialize file
@@ -26,8 +27,10 @@ class BlenderStatusMonitor:
         print("step1 result is: " + step1_result)
         
         step2_result = self.checkStep2()
-        print("step1 result is: " + step2_result)
+        print("step2 result is: " + step2_result)
         
+        step3_result = self.checkStep3()
+        print("step3 result is: " + step3_result)
         
         self.counter += 1
         if (self.counter >= self.max_count):
@@ -39,9 +42,11 @@ class BlenderStatusMonitor:
                 self.appendToFile(step1_result)
             if (step2_result != ""): 
                 self.appendToFile(step2_result)
+            if (step3_result != ""): 
+                self.appendToFile(step3_result)
                 
             self.progress_file.close()
-            return 3.0
+            return 2.0
          
     def startMonitor(self):
         bpy.app.timers.register(self.onTimeHandler)
@@ -54,25 +59,52 @@ class BlenderStatusMonitor:
     
     #adding a cube check
     def checkStep1(self):
+        result = ''
         if self.progress['1'] == False:
-            for item in bpy.data.objects:
-                if item.name == 'Cube':
-                    self.progress['1'] = True
-                    return "1_done"
-            return ""
-        else:
-            return ""
-    
-    #moving with G check
+            cube = self.findObj('Cube')
+            if cube != None:
+                self.progress['1'] = True
+                result = "1_done"   
+        return result
+        
+    #deleting a cube check    
     def checkStep2(self):
-        if self.progress['1'] == True and self.progress['2'] == False:
-            print("false and tru checks work")
-            if bpy.data.objects['Cube'].location.x != 0.0 or bpy.data.objects['Cube'].location.y != 0.0 or bpy.data.objects['Cube'].location.z != 0.0:
-                self.progress['2'] = True
-                return "2_done"
-            return ""
-        else:
-            return ""
+         result = ''
+         if self.progress['1'] == True and self.progress['2'] == False:
+              cube = self.findObj('Cube')
+              if cube == None:
+                  self.progress['2'] = True
+                  result = "2_done"
+         return result
+    
+    #circle vertices check
+    def checkStep3(self):
+        result = ''
+        if self.progress['2'] == True and self.progress['3'] == False:
+            circle = self.findObj('Circle')
+            if circle != None:
+                if len(circle.data.vertices.items()) == 6:
+                    self.progress['3'] = True
+                    result = "3_done"
+        return result
+    
+    #object checks to simplify and shorten code    
+    def findObj(self, name):
+        for obj in bpy.data.objects:
+            if obj.name == name:
+                return obj
+        return None
+
+    #moving with G check
+#    def checkStep2(self):
+#        if self.progress['1'] == True and self.progress['2'] == False:
+#            print("false and tru checks work")
+#            if bpy.data.objects['Cube'].location.x != 0.0 or bpy.data.objects['Cube'].location.y != 0.0 or bpy.data.objects['Cube'].location.z != 0.0:
+#                self.progress['2'] = True
+#                return "2_done"
+#            return ""
+#        else:
+#            return ""
    
    #def setStepTrue(self):
        #for step in self.progress:
@@ -80,4 +112,4 @@ class BlenderStatusMonitor:
            #return step + "_done"
        
 if __name__ == "__main__":
-    BlenderStatusMonitor(10, "/users/vivian/Documents/blender/progress.txt") 
+    BlenderStatusMonitor(100, "/users/vivian/Documents/blender/progress.txt") 
