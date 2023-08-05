@@ -26,7 +26,8 @@ class BlenderTutorial:
 
         self.progress = {
             '1': False,
-            '2': False
+            '2': False,
+            '3': False
         }
         
         #continue button  
@@ -92,15 +93,63 @@ class BlenderTutorial:
                 self.inst_count +=1
             else:
                 # popup a error button
-                self.root.title(" ")
-                self.error_pop = Toplevel(self.root)
-                self.error_pop.geometry("100x60")
-                self.error_pop.config(bg ="red")
-                self.error_label = Label(self.error_pop, text="Add the object to continue!", bg="red", fg="white", wraplength=75, justify="center")
-                self.error_label.pack()
-                self.error_pop.pack()
+                self.errorPop("Add the cube to continue!")
+        
+        elif (self.inst_count == 12):
+              self.root.title("Deleting Objects and Undo/Redos")
+              self.step_label.config(text = ts.instructions['i12'])
+              self.inst_count +=1  
+        
+        elif (self.inst_count == 13):
+              self.step_label.config(text = ts.instructions['i13'])
+              self.inst_count +=1   
+        
+        elif (self.inst_count == 14):
+            if self.progress['2'] == True:
+                #change text
+                self.step_label.config(text = ts.instructions['i14'])
+                self.inst_count +=1 
+            else:
+                # popup a error button
+                self.errorPop("Delete the cube to continue!")  
+        
+        elif (self.inst_count == 15):
+              self.step_label.config(text = ts.instructions['i15'])
+              self.inst_count +=1
+        
+        elif (self.inst_count == 16):
+              self.step_label.config(text = ts.instructions['i16'])
+              self.inst_count +=1
+        
+        elif (self.inst_count == 17):
+              self.step_label.config(text = ts.instructions['i17'])
+              self.inst_count +=1
+              
+        elif (self.inst_count == 18):
+            if self.progress['3'] == True:
+                #change text
+                self.step_label.config(text = ts.instructions['i18'])
+                self.inst_count +=1
+            else:
+                # popup a error button
+                self.errorPop("Adjust the vertices and fill-type to continue!")
                 
-             
+        elif (self.inst_count == 19):
+              self.step_label.config(text = ts.instructions['i19'])
+              self.inst_count +=1
+        
+         
+    
+    #function for error message
+    def errorPop(self, message):
+        self.root.title(" ")
+        self.error_pop = Toplevel(self.root)
+        self.error_pop.geometry("100x60")
+        self.error_pop.config(bg ="red")
+        self.error_label = Label(self.error_pop, text=message, bg="red", fg="white", wraplength=75, justify="center")
+        self.error_label.pack()
+        self.error_pop.eval('tk::PlaceWindow . center')
+        self.error_pop.pack()                 
               
     #checks progress.txt        
     def onProgressChange(self):
@@ -111,11 +160,17 @@ class BlenderTutorial:
         lastLine = self.readProgress()
         
         #progress checks. keep repeating
+        # add cube
         if (lastLine == "1_done"): 
             self.progress['1'] = True
 
+        #delete cube
         if (lastLine == "2_done"): 
             self.progress['2'] = True
+        
+        #circle vertices and fill
+        if (lastLine == "3_done"): 
+            self.progress['3'] = True
 
     def showMessage(self, msg, title):
         messagebox.showinfo(title=title, message=msg)
