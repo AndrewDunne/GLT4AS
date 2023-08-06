@@ -27,7 +27,10 @@ class BlenderTutorial:
         self.progress = {
             '1': False,
             '2': False,
-            '3': False
+            '3': False,
+            '4': False,
+            '5': False,
+            '6': False
         }
         
         #continue button  
@@ -120,25 +123,138 @@ class BlenderTutorial:
         elif (self.inst_count == 16):
               self.step_label.config(text = ts.instructions['i16'])
               self.inst_count +=1
-        
+         
         elif (self.inst_count == 17):
               self.step_label.config(text = ts.instructions['i17'])
               self.inst_count +=1
-              
+              print(self.inst_count)
+        
         elif (self.inst_count == 18):
+              self.step_label.config(text = ts.instructions['i18'])
+              self.inst_count +=1
+              
+        #not working      
+        elif (self.inst_count == 19):
             if self.progress['3'] == True:
+                print("check 3 is passed")
                 #change text
-                self.step_label.config(text = ts.instructions['i18'])
+                self.step_label.config(text = ts.instructions['i19'])
+                print("text changed line run")
                 self.inst_count +=1
             else:
                 # popup a error button
                 self.errorPop("Adjust the vertices and fill-type to continue!")
-                
-        elif (self.inst_count == 19):
-              self.step_label.config(text = ts.instructions['i19'])
+        
+        elif (self.inst_count == 20): 
+              self.step_label.config(text = ts.instructions['i20'])
+              self.inst_count +=1
+              
+        elif (self.inst_count == 21): 
+              self.step_label.config(text = ts.instructions['i21'])
+              self.inst_count +=1
+              
+        #move cube check     
+        elif (self.inst_count == 22): 
+              if self.progress['4'] == True:
+                #change text
+                self.step_label.config(text = ts.instructions['i22'])
+                self.inst_count +=1
+              else:
+                # popup a error button
+                self.errorPop("Move the cube to continue")
+        
+        elif (self.inst_count == 23): 
+              self.step_label.config(text = ts.instructions['i23'])
+              self.inst_count +=1
+              
+        #rotate cube check
+        elif (self.inst_count == 24): 
+              if self.progress['5'] == True:
+                #change text
+                self.step_label.config(text = ts.instructions['i24'])
+                self.inst_count +=1
+              else:
+                # popup a error button
+                self.errorPop("Rotate the cube to continue")
+        
+        elif (self.inst_count == 25): 
+              self.step_label.config(text = ts.instructions['i25'])
               self.inst_count +=1
         
-         
+        #scale cube check
+        elif (self.inst_count == 26): 
+              if self.progress['6'] == True:
+                #change text
+                self.step_label.config(text = ts.instructions['i26'])
+                self.inst_count +=1
+              else:
+                # popup a error button
+                self.errorPop("Scale the cube to continue")
+        
+        elif (self.inst_count == 27):
+              self.step_label.config(text = ts.instructions['i27'])
+              self.inst_count +=1
+        
+        elif (self.inst_count == 28):
+              self.root.title("Selecting Objects")
+              self.step_label.config(text = ts.instructions['i28'])
+              self.inst_count +=1
+        
+        elif (self.inst_count == 29):
+              self.step_label.config(text = ts.instructions['i29'])
+              self.inst_count +=1
+        
+        elif (self.inst_count == 30):
+              self.step_label.config(text = ts.instructions['i30'])
+              self.inst_count +=1
+                   
+        elif (self.inst_count == 31): 
+              self.step_label.config(text = ts.instructions['i31'])
+              self.inst_count +=1
+        
+        elif (self.inst_count == 32): 
+              self.root.title("Flat and Smooth Shading")
+              self.step_label.config(text = ts.instructions['i32'])
+              self.inst_count +=1
+        
+        #smooth shading check
+        elif (self.inst_count == 33):  
+              self.step_label.config(text = ts.instructions['i33'])
+              self.inst_count +=1
+        
+        elif (self.inst_count == 34):  
+              self.step_label.config(text = ts.instructions['i34'])
+              self.inst_count +=1
+        
+        elif (self.inst_count == 35):  
+              self.step_label.config(text = ts.instructions['i35'])
+              self.inst_count +=1
+        
+        #auto shading check
+        elif (self.inst_count == 36):  
+              self.step_label.config(text = ts.instructions['i36'])
+              self.inst_count +=1
+        
+        elif (self.inst_count == 37):  
+              self.step_label.config(text = ts.instructions['i37'])
+              self.inst_count +=1
+        
+        elif (self.inst_count == 38):
+              self.root.title("Duplicating Objects") 
+              self.step_label.config(text = ts.instructions['i38'])
+              self.inst_count +=1
+        
+        elif (self.inst_count == 39):  
+              self.step_label.config(text = ts.instructions['i39'])
+              self.inst_count +=1
+        
+        elif (self.inst_count == 40):  
+              self.step_label.config(text = ts.instructions['i40'])
+              self.inst_count +=1
+        
+        elif (self.inst_count == 41):  
+              self.step_label.config(text = ts.instructions['i41'])
+              self.inst_count +=1
     
     #function for error message
     def errorPop(self, message):
@@ -171,6 +287,18 @@ class BlenderTutorial:
         #circle vertices and fill
         if (lastLine == "3_done"): 
             self.progress['3'] = True
+        
+        #cube move
+        if (lastLine == "4_done"): 
+            self.progress['4'] = True
+        
+        #cube rotate
+        if (lastLine == "5_done"): 
+            self.progress['5'] = True
+        
+        #cube scale
+        if (lastLine == "6_done"): 
+            self.progress['6'] = True
 
     def showMessage(self, msg, title):
         messagebox.showinfo(title=title, message=msg)
