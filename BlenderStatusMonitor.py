@@ -15,7 +15,11 @@ class BlenderStatusMonitor:
             '5': False,
             '6': False,
             '7': False,
-            '8': False
+            '8': False,
+            '9': False,
+            '10': False,
+            '11': False,
+            '12': False
         }
         
         # initialize file
@@ -52,6 +56,18 @@ class BlenderStatusMonitor:
         step8_result = self.checkStep8()
         print("step8 result is: " + step8_result)
         
+        step9_result = self.checkStep9()
+        print("step9 result is: " + step9_result)
+        
+        step10_result = self.checkStep10()
+        print("step10 result is: " + step10_result)
+        
+        step11_result = self.checkStep11()
+        print("step11 result is: " + step11_result)
+        
+        step12_result = self.checkStep12()
+        print("step12 result is: " + step12_result)
+        
         self.counter += 1
         if (self.counter >= self.max_count):
             self.appendToFile("tutorial completed")
@@ -74,7 +90,15 @@ class BlenderStatusMonitor:
                 self.appendToFile(step7_result)
             if (step8_result != ""): 
                 self.appendToFile(step8_result)
-                
+            if (step9_result != ""): 
+                self.appendToFile(step9_result)
+            if (step10_result != ""): 
+                self.appendToFile(step10_result)
+            if (step11_result != ""): 
+                self.appendToFile(step11_result)
+            if (step12_result != ""): 
+                self.appendToFile(step12_result)
+                    
             self.progress_file.close()
             return 2.0
          
@@ -180,17 +204,44 @@ class BlenderStatusMonitor:
                     result = "8_done"
         return result
     
-    #duplicate object check
+    #duplicate object check  
     def checkStep9(self):
         result = ''
         if self.progress['8'] == True and self.progress['9'] == False:
-            cylinder = self.findObj('Cylinder')
-            if cylinder != None:
-                if cylinder.data.use_auto_smooth == True:
+            cube = self.findObj('Cube')
+            if cube != None:
+                if len(bpy.data.objects.items()) == 5:
                     self.progress['9'] = True
                     result = "9_done"
         return result
+    
+    #change to edit mode check
+    def checkStep10(self):
+        result = ''
+        if self.progress['9'] == True and self.progress['10'] == False:
+            if bpy.context.mode == 'EDIT_MESH':
+                self.progress['10'] = True
+                result = "10_done"
+        return result
        
+    #transformed vertices check working on it
+    def checkStep11(self):
+        result = ''
+        if self.progress['10'] == True and self.progress['11'] == False:
+             #what to put
+                self.progress['11'] = True
+                result = "11_done"
+        return result
+    
+    #change selection mode check
+    def checkStep12(self):
+        result = ''
+        if self.progress['11'] == True and self.progress['12'] == False:
+            if tuple(bpy.context.scene.tool_settings.mesh_select_mode) != (True, False, False):
+                self.progress['12'] = True
+                result = "12_done"
+        return result
        
+          
 if __name__ == "__main__":
     BlenderStatusMonitor(1000, "/users/vivian/Documents/blender/progress.txt") 
