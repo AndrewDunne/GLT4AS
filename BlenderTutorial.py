@@ -30,7 +30,10 @@ class BlenderTutorial:
             '3': False,
             '4': False,
             '5': False,
-            '6': False
+            '6': False,
+            '7': False,
+            '8': False,
+            '9': False
         }
         
         #continue button  
@@ -133,7 +136,7 @@ class BlenderTutorial:
               self.step_label.config(text = ts.instructions['i18'])
               self.inst_count +=1
               
-        #not working      
+        #vertices check      
         elif (self.inst_count == 19):
             if self.progress['3'] == True:
                 print("check 3 is passed")
@@ -146,6 +149,7 @@ class BlenderTutorial:
                 self.errorPop("Adjust the vertices and fill-type to continue!")
         
         elif (self.inst_count == 20): 
+              self.root.title("Basic Transformations")
               self.step_label.config(text = ts.instructions['i20'])
               self.inst_count +=1
               
@@ -196,29 +200,29 @@ class BlenderTutorial:
               self.inst_count +=1
         
         elif (self.inst_count == 28):
-              self.root.title("Selecting Objects")
+              self.root.title("Transform Panel")
               self.step_label.config(text = ts.instructions['i28'])
               self.inst_count +=1
         
         elif (self.inst_count == 29):
+              self.root.title("Selecting Objects")
               self.step_label.config(text = ts.instructions['i29'])
               self.inst_count +=1
         
         elif (self.inst_count == 30):
               self.step_label.config(text = ts.instructions['i30'])
               self.inst_count +=1
-                   
-        elif (self.inst_count == 31): 
+        
+        elif (self.inst_count == 31):
               self.step_label.config(text = ts.instructions['i31'])
               self.inst_count +=1
-        
+                   
         elif (self.inst_count == 32): 
-              self.root.title("Flat and Smooth Shading")
               self.step_label.config(text = ts.instructions['i32'])
               self.inst_count +=1
         
-        #smooth shading check
-        elif (self.inst_count == 33):  
+        elif (self.inst_count == 33): 
+              self.root.title("Flat and Smooth Shading")
               self.step_label.config(text = ts.instructions['i33'])
               self.inst_count +=1
         
@@ -226,11 +230,16 @@ class BlenderTutorial:
               self.step_label.config(text = ts.instructions['i34'])
               self.inst_count +=1
         
+        #smooth shading check
         elif (self.inst_count == 35):  
-              self.step_label.config(text = ts.instructions['i35'])
-              self.inst_count +=1
+              if self.progress['7'] == True:
+                #change text
+                self.step_label.config(text = ts.instructions['i35'])
+                self.inst_count +=1
+              else:
+                # popup a error button
+                self.errorPop("shade the sphere smooth to continue")
         
-        #auto shading check
         elif (self.inst_count == 36):  
               self.step_label.config(text = ts.instructions['i36'])
               self.inst_count +=1
@@ -239,12 +248,18 @@ class BlenderTutorial:
               self.step_label.config(text = ts.instructions['i37'])
               self.inst_count +=1
         
-        elif (self.inst_count == 38):
-              self.root.title("Duplicating Objects") 
-              self.step_label.config(text = ts.instructions['i38'])
-              self.inst_count +=1
+        #auto shading check
+        elif (self.inst_count == 38):  
+              if self.progress['8'] == True:
+                #change text
+                self.step_label.config(text = ts.instructions['i38'])
+                self.inst_count +=1
+              else:
+                # popup a error button
+                self.errorPop("turn on auto shade smooth to continue")
         
-        elif (self.inst_count == 39):  
+        elif (self.inst_count == 39):
+              self.root.title("Duplicating Objects") 
               self.step_label.config(text = ts.instructions['i39'])
               self.inst_count +=1
         
@@ -255,6 +270,14 @@ class BlenderTutorial:
         elif (self.inst_count == 41):  
               self.step_label.config(text = ts.instructions['i41'])
               self.inst_count +=1
+        
+        #check duplicate object
+        elif (self.inst_count == 42):  
+              self.step_label.config(text = ts.instructions['i42'])
+              self.inst_count +=1
+        
+        #done with object mode tutorial
+        #start of edit mode tutorial
     
     #function for error message
     def errorPop(self, message):
@@ -299,6 +322,18 @@ class BlenderTutorial:
         #cube scale
         if (lastLine == "6_done"): 
             self.progress['6'] = True
+        
+        #sphere shade smooth 
+        if (lastLine == "7_done"): 
+            self.progress['7'] = True
+            
+        #cylinder auto shade smooth
+        if (lastLine == "8_done"): 
+            self.progress['8'] = True
+        
+        #duplicate object 
+        if (lastLine == "9_done"): 
+            self.progress['9'] = True
 
     def showMessage(self, msg, title):
         messagebox.showinfo(title=title, message=msg)
