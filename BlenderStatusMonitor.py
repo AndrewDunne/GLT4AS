@@ -14,7 +14,8 @@ class BlenderStatusMonitor:
             '4': False,
             '5': False,
             '6': False,
-            '7': False
+            '7': False,
+            '8': False
         }
         
         # initialize file
@@ -48,6 +49,9 @@ class BlenderStatusMonitor:
         step7_result = self.checkStep7()
         print("step7 result is: " + step7_result)
         
+        step8_result = self.checkStep8()
+        print("step8 result is: " + step8_result)
+        
         self.counter += 1
         if (self.counter >= self.max_count):
             self.appendToFile("tutorial completed")
@@ -68,6 +72,8 @@ class BlenderStatusMonitor:
                 self.appendToFile(step6_result)
             if (step7_result != ""): 
                 self.appendToFile(step7_result)
+            if (step8_result != ""): 
+                self.appendToFile(step8_result)
                 
             self.progress_file.close()
             return 2.0
@@ -158,11 +164,33 @@ class BlenderStatusMonitor:
         if self.progress['6'] == True and self.progress['7'] == False:
             sphere = self.findObj('Sphere')
             if sphere != None:
-                if sphere.data.shade_smooth() == True:
+                if sphere.data.polygons[0].use_smooth == True:
                     self.progress['7'] = True
                     result = "7_done"
         return result
-        
+    
+    #auto smooth check
+    def checkStep8(self):
+        result = ''
+        if self.progress['7'] == True and self.progress['8'] == False:
+            cylinder = self.findObj('Cylinder')
+            if cylinder != None:
+                if cylinder.data.use_auto_smooth == True:
+                    self.progress['8'] = True
+                    result = "8_done"
+        return result
+    
+    #duplicate object check
+    def checkStep9(self):
+        result = ''
+        if self.progress['8'] == True and self.progress['9'] == False:
+            cylinder = self.findObj('Cylinder')
+            if cylinder != None:
+                if cylinder.data.use_auto_smooth == True:
+                    self.progress['9'] = True
+                    result = "9_done"
+        return result
+       
        
 if __name__ == "__main__":
     BlenderStatusMonitor(1000, "/users/vivian/Documents/blender/progress.txt") 
