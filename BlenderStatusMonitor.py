@@ -116,6 +116,15 @@ class BlenderStatusMonitor:
                 return obj
         return None 
     
+    #bmesh check
+    def findBMesh(self, name):
+        bm = None
+        obj = self.findObj(name)
+        if obj:
+            bm = bmesh.from_edit_mesh(obj)
+        return bm
+    
+    
     # status checks
     
     #adding a cube check
@@ -208,15 +217,14 @@ class BlenderStatusMonitor:
     def checkStep9(self):
         result = ''
         if self.progress['8'] == True and self.progress['9'] == False:
-            cube = self.findObj('Cube')
-            if cube != None:
-                if len(bpy.data.objects.items()) == 5:
+            if len(bpy.data.objects.items()) == 4:
                     self.progress['9'] = True
                     result = "9_done"
         return result
     
     #change to edit mode check
     def checkStep10(self):
+        self.old_mesh = D.objects['Cube'].data.copy()
         result = ''
         if self.progress['9'] == True and self.progress['10'] == False:
             if bpy.context.mode == 'EDIT_MESH':
@@ -225,12 +233,23 @@ class BlenderStatusMonitor:
         return result
        
     #transformed vertices check working on it
+    
+    def isTransformed(self, old, new):
+        # 1. compare x/y/z of old and new
+        # 2. if all the same return false
+        # 3. else return true
+       self.old =  
+        
     def checkStep11(self):
         result = ''
         if self.progress['10'] == True and self.progress['11'] == False:
-             #what to put
-                self.progress['11'] = True
-                result = "11_done"
+             cube = self.findBMesh('Cube')
+             if cube:
+                 for index, new_vert in enumerate(cube.verts):
+                     if self.isTransformed(self.old_mesh[index], new_vert)  
+                        self.progress['11'] = True
+                        result = "11_done"
+                        break
         return result
     
     #change selection mode check
@@ -241,6 +260,7 @@ class BlenderStatusMonitor:
                 self.progress['12'] = True
                 result = "12_done"
         return result
+    
        
           
 if __name__ == "__main__":
