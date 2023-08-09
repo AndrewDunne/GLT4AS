@@ -33,7 +33,10 @@ class BlenderTutorial:
             '6': False,
             '7': False,
             '8': False,
-            '9': False
+            '9': False,
+            '10': False,
+            '11': False,
+            '12': False
         }
         
         #continue button  
@@ -273,11 +276,77 @@ class BlenderTutorial:
         
         #check duplicate object
         elif (self.inst_count == 42):  
-              self.step_label.config(text = ts.instructions['i42'])
+              if self.progress['9'] == True:
+                #change text
+                self.step_label.config(text = ts.instructions['i42'])
+                self.inst_count +=1
+              else:
+                # popup a error button
+                self.errorPop("duplicate the object to continue")
+        
+        #done with object mode tutorial, start of edit mode tutorial figure out how to start with a cube
+        elif (self.inst_count == 43):  
+              self.root.title("Switching Modes") 
+              self.step_label.config(text = ts.instructions['i43'])
               self.inst_count +=1
         
-        #done with object mode tutorial
-        #start of edit mode tutorial
+        elif (self.inst_count == 44):  
+              self.step_label.config(text = ts.instructions['i43'])
+              self.inst_count +=1
+        
+        #check switch mode
+        elif (self.inst_count == 45): 
+              if self.progress['10'] == True:
+                #change text
+                self.step_label.config(text = ts.instructions['i45'])
+                self.inst_count +=1
+              else:
+                # popup a error button
+                self.errorPop("Switch to Edit Mode to continue")
+        
+        elif (self.inst_count == 46): 
+              self.root.title("Vertices, Edges, Faces")  
+              self.step_label.config(text = ts.instructions['i46'])
+              self.inst_count +=1
+            
+        elif (self.inst_count == 47):  
+              self.root.title("Transforming in Edit Mode")  
+              self.step_label.config(text = ts.instructions['i47'])
+              self.inst_count +=1
+        
+        elif (self.inst_count == 48):  
+              self.step_label.config(text = ts.instructions['i48'])
+              self.inst_count +=1
+        
+        #check for transformed vertices
+        elif (self.inst_count == 48):  
+              if self.progress['11'] == True:
+                #change text
+                self.step_label.config(text = ts.instructions['i48'])
+                self.inst_count +=1
+              else:
+                # popup a error button
+                self.errorPop("Transform the vertices to continue")
+        
+        elif (self.inst_count == 49):  
+              self.step_label.config(text = ts.instructions['i49'])
+              self.inst_count +=1
+        
+        #check that selection mode changed
+        elif (self.inst_count == 50):  
+              if self.progress['12'] == True:
+                #change text
+                self.step_label.config(text = ts.instructions['i50'])
+                self.inst_count +=1
+              else:
+                # popup a error button
+                self.errorPop("Switch the selection mode to continue")
+        
+        elif (self.inst_count == 51):  
+              self.root.title("Loop Select") 
+              self.step_label.config(text = ts.instructions['i51'])
+              self.inst_count +=1
+              
     
     #function for error message
     def errorPop(self, message):
@@ -334,6 +403,18 @@ class BlenderTutorial:
         #duplicate object 
         if (lastLine == "9_done"): 
             self.progress['9'] = True
+        
+        #change to edit mode 
+        if (lastLine == "10_done"): 
+            self.progress['10'] = True
+            
+        #transform vertices in edit mode
+        if (lastLine == "11_done"): 
+            self.progress['11'] = True
+        
+        #change selection mode
+        if (lastLine == "12_done"): 
+            self.progress['12'] = True
 
     def showMessage(self, msg, title):
         messagebox.showinfo(title=title, message=msg)
