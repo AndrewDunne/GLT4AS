@@ -19,7 +19,13 @@ class BlenderStatusMonitor:
             '9': False,
             '10': False,
             '11': False,
-            '12': False
+            '12': False,
+            '13': False,
+            '14': False,
+            '15': False,
+            '16': False,
+            '17': False,
+            '18': False
         }
         
         # initialize file
@@ -68,6 +74,24 @@ class BlenderStatusMonitor:
         step12_result = self.checkStep12()
         print("step12 result is: " + step12_result)
         
+        step13_result = self.checkStep13()
+        print("step13 result is: " + step13_result)
+        
+        step14_result = self.checkStep14()
+        print("step14 result is: " + step14_result)
+        
+        step15_result = self.checkStep15()
+        print("step15 result is: " + step15_result)
+        
+        step16_result = self.checkStep16()
+        print("step16 result is: " + step16_result)
+        
+        step17_result = self.checkStep17()
+        print("step17 result is: " + step17_result)
+        
+        step18_result = self.checkStep18()
+        print("step18 result is: " + step18_result)
+        
         self.counter += 1
         if (self.counter >= self.max_count):
             self.appendToFile("tutorial completed")
@@ -98,6 +122,18 @@ class BlenderStatusMonitor:
                 self.appendToFile(step11_result)
             if (step12_result != ""): 
                 self.appendToFile(step12_result)
+            if (step13_result != ""): 
+                self.appendToFile(step13_result)
+            if (step14_result != ""): 
+                self.appendToFile(step14_result)
+            if (step15_result != ""): 
+                self.appendToFile(step15_result)
+            if (step16_result != ""): 
+                self.appendToFile(step16_result)
+            if (step17_result != ""): 
+                self.appendToFile(step17_result)
+            if (step18_result != ""): 
+                self.appendToFile(step18_result)
                     
             self.progress_file.close()
             return 2.0
@@ -123,7 +159,6 @@ class BlenderStatusMonitor:
         if obj:
             bm = bmesh.from_edit_mesh(obj)
         return bm
-    
     
     # status checks
     
@@ -232,7 +267,7 @@ class BlenderStatusMonitor:
                 result = "10_done"
         return result
        
-    #transformed vertices check working on it
+    #transformed vertices check 
     
     def isTransformed(self, old, new):
         # 1. compare x/y/z of old and new
@@ -261,7 +296,29 @@ class BlenderStatusMonitor:
                 result = "12_done"
         return result
     
-       
+     #proportional editing on check
+     def checkStep13(self):
+         result = ''
+         if bpy.context.scene.tool_settings.use_proportional_edit == True:
+             self.progress['13'] = True
+             result = "13_done"
+        return result
+     
+     #fall off sharp on check
+     def checkStep14(self):
+         result = ''
+         if  bpy.context.scene.tool_settings.proportional_edit_falloff == 'SHARP':
+             self.progress['14'] = True
+             result = "14_done"
+        return result
+    
+     #extrude check
+     
+     #inset face check
+     
+     #loop cut check
+     
+     #bevel check
           
 if __name__ == "__main__":
     BlenderStatusMonitor(1000, "/users/vivian/Documents/blender/progress.txt") 
