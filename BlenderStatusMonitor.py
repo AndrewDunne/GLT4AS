@@ -267,13 +267,13 @@ class BlenderStatusMonitor:
                 result = "10_done"
         return result
        
-    #transformed vertices check 
+    #transformed vertices check working on it
     
-    def isTransformed(self, old, new):
-        # 1. compare x/y/z of old and new
-        # 2. if all the same return false
-        # 3. else return true
-       self.old =  
+#    def isTransformed(self, old, new):
+#        # 1. compare x/y/z of old and new
+#        # 2. if all the same return false
+#        # 3. else return true
+#       self.old =  
         
     def checkStep11(self):
         result = ''
@@ -281,7 +281,7 @@ class BlenderStatusMonitor:
              cube = self.findBMesh('Cube')
              if cube:
                  for index, new_vert in enumerate(cube.verts):
-                     if self.isTransformed(self.old_mesh[index], new_vert)  
+                     if self.isTransformed(self.old_mesh[index], new_vert):  
                         self.progress['11'] = True
                         result = "11_done"
                         break
@@ -296,29 +296,56 @@ class BlenderStatusMonitor:
                 result = "12_done"
         return result
     
-     #proportional editing on check
-     def checkStep13(self):
-         result = ''
-         if bpy.context.scene.tool_settings.use_proportional_edit == True:
+    #proportional editing on check
+    def checkStep13(self):
+        result = ''
+        if self.progress['12'] == True and self.progress['13'] == False:
+        if bpy.context.scene.tool_settings.use_proportional_edit == True:
              self.progress['13'] = True
              result = "13_done"
         return result
      
-     #fall off sharp on check
-     def checkStep14(self):
-         result = ''
-         if  bpy.context.scene.tool_settings.proportional_edit_falloff == 'SHARP':
+    #fall off sharp on check
+    def checkStep14(self):
+        result = ''
+        if self.progress['13'] == True and self.progress['14'] == False:
+        if  bpy.context.scene.tool_settings.proportional_edit_falloff == 'SHARP':
              self.progress['14'] = True
              result = "14_done"
         return result
     
-     #extrude check
+    #extrude check
+    def checkStep15(self):
+        result = ''
+        if self.progress['14'] == True and self.progress['15'] == False:
+            cube = self.findObj('Cube')
+            if cube != None:
+                if cube.dimensions.x != 2.0 or cube.dimensions.y != 2.0 or cube.dimensions.z != 2.0:
+                    self.progress['15'] = True
+                    result = "15_done"
+        return result
+    
+    #working on it
+    #inset face check
+    def checkStep16(self):
+        result = ''
+        if self.progress['15'] == True and self.progress['16'] == False:
+            cube = self.findBMesh('Cube')
+            if cube:
+                if cube:
+                    self.progress['16'] = True
+                    result = "16_done"
+        return result
+    
+    #loop cut check
+    def checkStep17(self):
+        result = ''
+        if self.progress['16'] == True and self.progress['17'] == False:
+             cube = self.findBMesh('Cube')
+             if cube:
+                 
      
-     #inset face check
-     
-     #loop cut check
-     
-     #bevel check
+    #bevel check
           
 if __name__ == "__main__":
     BlenderStatusMonitor(1000, "/users/vivian/Documents/blender/progress.txt") 
