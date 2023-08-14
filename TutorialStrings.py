@@ -68,13 +68,36 @@ instructions = {
     'i49': "In order to manipulate edges or faces instead of vertices, you can change the selection mode. In the top right of the viewport next to ‘Edit Mode’ you’ll see three cube-shaped icons. They represent vertices, edges, and faces respectively. Click them to enter edge or face select modes, or press ‘1’, ‘2’, or ‘3’ on your keyboard.",
     #check that selection mode changed
     'i50': "Yay! You just learned how to manipulate vertices, edges, and faces of objects in Edit Mode",
-    'i51': "",
-    'i52': "",
-    'i53': "",
-    'i54': "",
-    'i55': "",
-    'i56': "",
-    'i57': "",
-    'i58': "",
-    'i59': "",
+    #loop cut starts now
+    'i51': "One way to select a section of vertices, edges, or faces on your mesh is called loop selection. For example, the ring of edges that go around a sphere vertically or horizontally are called edge loops.",
+    'i52': "If you want to select an edge loop all at once, hold down the ‘Alt’ key and left click on an edge! Try selecting an edge loop on the sphere and scale it with S.",
+    #proportional editing starts now
+    'i53': "On meshes with many vertices, edges, and faces (collectively called ‘geometry’), it can be tiresome to select exactly the ones you want to manipulate. To solve these problems, there exists a tool in edit mode called ‘Proportional Editing’ which changes the geometry you’re modifying apply(but less strongly) to nearby geometry.",
+    'i55': "To turn on proportional editing, find the icon on the top right of the 3D viewport that looks like a dot with a circle around it and click it.",
+    #proportional editing on check
+    'i56': "Good Job! Now, select some geometry and try editing it!",
+    'i57': "You may notice that a circle appears now when you are performing transformations - this represents the radius of the proportional editing, basically how big the effect is. You can make the radius larger or smaller by scrolling the mouse wheel while performing the transformation. Try it out!",
+    'i58': "To change the shape of proportional editing, click the dark bump icon to the right of the proportional editing icon to change its ‘falloff curve’. It’s using the ‘smooth’ curve by default, but the ‘sharp’ curve provides a nice contrast! Try out the sharp falloff setting.",
+    #fall off sharp check
+    'i59': "Now you know how to use proportional editing and its settings!",
+    'i60': "Edit mode also gives you many new tools for adding geometry to a mesh. One of the simplest and most useful is the ‘Extrude’ tool.",
+    'i61': "This can be found on the left-hand toolbar, or you can quickly extrude by pressing the E key after selecting geometry. See what happens when you extrude vertices, edges, and faces!",
+    #geometry extruded check
+    'i62': "Awesome Job extruding!",
+    'i63': "Edit mode’s ‘Inset Face’ tool is a great partner to the extrude tool.",
+    'i64': "With a face selected, find the inset face icon in the left toolbar, or press the i key to begin the action. A smaller face will appear inside the selected one, and you can move your cursor to change its size. Try using i to inset a face on the cube!",
+    #face inset check
+    'i65': "You just used inset! Nice!",
+    'i66': "This is great to use with extrude, because adding the extra geometry gives you new faces to extrude from. For example, extruding up the center from the top face of a cube could give you the stem for a (very blocky) apple!",
+    #loop cut starts here
+    'i67': "Another useful tool in edit mode is ‘loop cut’. The loop cut tool adds a loop of edges around a mesh, giving you the geometry you need to add finer details!",
+    'i68': "To start a loop cut, find its icon on the left toolbar or use the hotkey Ctrl+R, then move your cursor over the mesh until you see a yellow line wrap around the mesh. Left click to confirm the loop, and then slide the loop around with your mouse until you’re happy with its position, and then click again to place the loop. Try making a loop cut around the cylinder.",
+    #loop cut check
+    'i69': "Good job experimenting with loop cut! If you ever need more geometry to add details, loop cut is your friend.",
+    #bevel starts here
+    'i70': "Finally, if you want to add a bit of style to your meshes’ edges, the bevel tool is for you.",
+    'i71': "Select one or more edges in edit mode, then click the bevel icon in the toolbar, or use the hotkey Ctrl+B. The bevel tool will split the selected edges into faces, making the transition between larger faces less hard.",
+    #Cube beveled check
+    'i72': "Good job learning how to bevel!",
+    'i73':"Tutorial Complete!"
 }
