@@ -36,7 +36,13 @@ class BlenderTutorial:
             '9': False,
             '10': False,
             '11': False,
-            '12': False
+            '12': False,
+            '13': False,
+            '14': False,
+            '15': False,
+            '16': False,
+            '17': False,
+            '18': False
         }
         
         #continue button  
@@ -346,6 +352,136 @@ class BlenderTutorial:
               self.root.title("Loop Select") 
               self.step_label.config(text = ts.instructions['i51'])
               self.inst_count +=1
+        
+        elif (self.inst_count == 52):  
+              self.step_label.config(text = ts.instructions['i52'])
+              self.inst_count +=1
+        
+        elif (self.inst_count == 53):
+              self.root.title("Proportional Editing")  
+              self.step_label.config(text = ts.instructions['i53'])
+              self.inst_count +=1
+        
+        elif (self.inst_count == 54):  
+              self.step_label.config(text = ts.instructions['i54'])
+              self.inst_count +=1
+              
+        elif (self.inst_count == 55):  
+              self.step_label.config(text = ts.instructions['i55'])
+              self.inst_count +=1
+        
+        #check that proportional editing is on     
+        elif (self.inst_count == 56):  
+              if self.progress['13'] == True:
+                #change text
+                self.step_label.config(text = ts.instructions['i56'])
+                self.inst_count +=1
+              else:
+                # popup a error button
+                self.errorPop("Turn on proportional editing to continue!")
+              
+        elif (self.inst_count == 57):  
+              self.step_label.config(text = ts.instructions['i57'])
+              self.inst_count +=1
+              
+        elif (self.inst_count == 58):  
+              self.step_label.config(text = ts.instructions['i58'])
+              self.inst_count +=1
+        
+        #check for sharp fall off setting on      
+        elif (self.inst_count == 59):
+              if self.progress['14'] == True:
+                #change text
+                self.step_label.config(text = ts.instructions['i59'])
+                self.inst_count +=1
+              else:
+                # popup a error button
+                self.errorPop("Choose sharp fall off to continue")
+              
+        elif (self.inst_count == 60):
+              self.root.title("Extrude")  
+              self.step_label.config(text = ts.instructions['i60'])
+              self.inst_count +=1
+        
+        elif (self.inst_count == 61):  
+              self.step_label.config(text = ts.instructions['i61'])
+              self.inst_count +=1
+        
+        #check that object is extruded      
+        elif (self.inst_count == 62):  
+              if self.progress['15'] == True:
+                #change text
+                self.step_label.config(text = ts.instructions['i62'])
+                self.inst_count +=1
+              else:
+                # popup a error button
+                self.errorPop("Extrude the object to continue")
+              
+        elif (self.inst_count == 63): 
+              self.root.title("Inset Face")   
+              self.step_label.config(text = ts.instructions['i63'])
+              self.inst_count +=1
+              
+        elif (self.inst_count == 64):  
+              self.step_label.config(text = ts.instructions['i64'])
+              self.inst_count +=1
+        
+        #check that object has been inset      
+        elif (self.inst_count == 65):  
+              if self.progress['16'] == True:
+                #change text
+                self.step_label.config(text = ts.instructions['i65'])
+                self.inst_count +=1
+              else:
+                # popup a error button
+                self.errorPop("Inset a face of the object to continue")
+              
+        elif (self.inst_count == 66):  
+              self.step_label.config(text = ts.instructions['i66'])
+              self.inst_count +=1
+              
+        elif (self.inst_count == 67):  
+              self.root.title("Loop Cut") 
+              self.step_label.config(text = ts.instructions['i67'])
+              self.inst_count +=1
+              
+        elif (self.inst_count == 68):  
+              self.step_label.config(text = ts.instructions['i68'])
+              self.inst_count +=1
+        
+        #check that loop cut has been used      
+        elif (self.inst_count == 69):  
+              if self.progress['17'] == True:
+                #change text
+                self.step_label.config(text = ts.instructions['i69'])
+                self.inst_count +=1
+              else:
+                # popup a error button
+                self.errorPop("Use loop cut on the object to continue")
+              
+        elif (self.inst_count == 70): 
+              self.root.title("Bevel")  
+              self.step_label.config(text = ts.instructions['i70'])
+              self.inst_count +=1
+        
+        elif (self.inst_count == 71):  
+              self.step_label.config(text = ts.instructions['i71'])
+              self.inst_count +=1
+        
+        #check that bevel has been used      
+        elif (self.inst_count == 72):  
+              if self.progress['18'] == True:
+                #change text
+                self.step_label.config(text = ts.instructions['i72'])
+                self.inst_count +=1
+              else:
+                # popup a error button
+                self.errorPop("Bevel the object to continue")
+        
+        elif (self.inst_count == 73):
+              self.root.title("Congratulations")    
+              self.step_label.config(text = ts.instructions['i73'])
+              self.inst_count +=1
               
     
     #function for error message
@@ -415,6 +551,30 @@ class BlenderTutorial:
         #change selection mode
         if (lastLine == "12_done"): 
             self.progress['12'] = True
+            
+        #turn proportional editing on
+        if (lastLine == "13_done"): 
+            self.progress['13'] = True
+            
+        #fall off sharp mode on
+        if (lastLine == "14_done"): 
+            self.progress['14'] = True
+            
+        #extrude
+        if (lastLine == "15_done"): 
+            self.progress['15'] = True
+            
+        #inset face
+        if (lastLine == "16_done"): 
+            self.progress['16'] = True
+            
+        #loop cut
+        if (lastLine == "17_done"): 
+            self.progress['17'] = True
+            
+        #bevel
+        if (lastLine == "18_done"): 
+            self.progress['18'] = True
 
     def showMessage(self, msg, title):
         messagebox.showinfo(title=title, message=msg)
