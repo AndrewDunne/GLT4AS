@@ -5,6 +5,7 @@ from tkinter import *
 import TutorialProgressMonitor
 import os
 import TutorialStrings as ts
+import pygame
 
 class BlenderTutorial:
 
@@ -43,10 +44,10 @@ class BlenderTutorial:
             '16': False,
             '17': False,
             '18': False,
-            '19': False,
         }
 
-        
+        pygame.mixer.init()
+
         #continue button  
         self.step_count = 0
         self.inst_count = 2
@@ -105,12 +106,16 @@ class BlenderTutorial:
         elif (self.inst_count == 11):
             # 1. check if cube is added
             if self.progress['1']:
+                pygame.mixer.music.load("1.mp3")
+                pygame.mixer.music.play(loops=0)
                 #change text
                 self.step_label.config(text = ts.instructions['i11'])
                 self.inst_count +=1
             else:
+                pygame.mixer.music.load("2.mp3")
+                pygame.mixer.music.play(loops=0)
                 # popup a error button
-                self.errorPop("Add the cube to continue")
+                self.errorPop("Add the cube to continue!")
         
         elif (self.inst_count == 12):
               self.root.title("Deleting Objects and Undo/Redos")
@@ -123,12 +128,16 @@ class BlenderTutorial:
         
         elif (self.inst_count == 14):
             if self.progress['2'] == True:
+                pygame.mixer.music.load("1.mp3")
+                pygame.mixer.music.play(loops=0)
                 #change text
                 self.step_label.config(text = ts.instructions['i14'])
                 self.inst_count +=1 
             else:
+                pygame.mixer.music.load("2.mp3")
+                pygame.mixer.music.play(loops=0)
                 # popup a error button
-                self.errorPop("Delete the cube to continue")  
+                self.errorPop("Delete the cube to continue!")  
         
         elif (self.inst_count == 15):
               self.step_label.config(text = ts.instructions['i15'])
@@ -150,12 +159,16 @@ class BlenderTutorial:
         #vertices check      
         elif (self.inst_count == 19):
             if self.progress['3'] == True:
+                pygame.mixer.music.load("1.mp3")
+                pygame.mixer.music.play(loops=0)
                 print("check 3 is passed")
                 #change text
                 self.step_label.config(text = ts.instructions['i19'])
                 print("text changed line run")
                 self.inst_count +=1
             else:
+                pygame.mixer.music.load("2.mp3")
+                pygame.mixer.music.play(loops=0)
                 # popup a error button
                 self.errorPop("Adjust the vertices and fill-type to continue!")
         
@@ -171,10 +184,14 @@ class BlenderTutorial:
         #move cube check     
         elif (self.inst_count == 22): 
               if self.progress['4'] == True:
+                pygame.mixer.music.load("1.mp3")
+                pygame.mixer.music.play(loops=0)
                 #change text
                 self.step_label.config(text = ts.instructions['i22'])
                 self.inst_count +=1
               else:
+                pygame.mixer.music.load("2.mp3")
+                pygame.mixer.music.play(loops=0)
                 # popup a error button
                 self.errorPop("Move the cube to continue")
         
@@ -185,10 +202,14 @@ class BlenderTutorial:
         #rotate cube check
         elif (self.inst_count == 24): 
               if self.progress['5'] == True:
+                pygame.mixer.music.load("1.mp3")
+                pygame.mixer.music.play(loops=0)
                 #change text
                 self.step_label.config(text = ts.instructions['i24'])
                 self.inst_count +=1
               else:
+                pygame.mixer.music.load("2.mp3")
+                pygame.mixer.music.play(loops=0)
                 # popup a error button
                 self.errorPop("Rotate the cube to continue")
         
@@ -199,10 +220,14 @@ class BlenderTutorial:
         #scale cube check
         elif (self.inst_count == 26): 
               if self.progress['6'] == True:
+                pygame.mixer.music.load("1.mp3")
+                pygame.mixer.music.play(loops=0)
                 #change text
                 self.step_label.config(text = ts.instructions['i26'])
                 self.inst_count +=1
               else:
+                pygame.mixer.music.load("2.mp3")
+                pygame.mixer.music.play(loops=0)
                 # popup a error button
                 self.errorPop("Scale the cube to continue")
         
@@ -244,10 +269,14 @@ class BlenderTutorial:
         #smooth shading check
         elif (self.inst_count == 35):  
               if self.progress['7'] == True:
+                pygame.mixer.music.load("1.mp3")
+                pygame.mixer.music.play(loops=0)
                 #change text
                 self.step_label.config(text = ts.instructions['i35'])
                 self.inst_count +=1
               else:
+                pygame.mixer.music.load("2.mp3")
+                pygame.mixer.music.play(loops=0)
                 # popup a error button
                 self.errorPop("Shade the sphere smooth to continue")
         
@@ -262,10 +291,14 @@ class BlenderTutorial:
         #auto shading check
         elif (self.inst_count == 38):  
               if self.progress['8'] == True:
+                pygame.mixer.music.load("1.mp3")
+                pygame.mixer.music.play(loops=0)
                 #change text
                 self.step_label.config(text = ts.instructions['i38'])
                 self.inst_count +=1
               else:
+                pygame.mixer.music.load("2.mp3")
+                pygame.mixer.music.play(loops=0)
                 # popup a error button
                 self.errorPop("Turn on auto shade smooth to continue")
         
@@ -278,167 +311,246 @@ class BlenderTutorial:
               self.step_label.config(text = ts.instructions['i40'])
               self.inst_count +=1
 
-        #check duplicate object
         elif (self.inst_count == 41):  
+              self.step_label.config(text = ts.instructions['i41'])
+              self.inst_count +=1
+
+        #check duplicate object
+        elif (self.inst_count == 42):  
               if self.progress['9'] == True:
+                pygame.mixer.music.load("1.mp3")
+                pygame.mixer.music.play(loops=0)
                 #change text
-                self.step_label.config(text = ts.instructions['i41'])
+                self.step_label.config(text = ts.instructions['i42'])
                 self.inst_count +=1
               else:
+                pygame.mixer.music.load("2.mp3")
+                pygame.mixer.music.play(loops=0)
                 # popup a error button
                 self.errorPop("Duplicate the object to continue")
-        elif (self.inst_count == 42):
+       
+        elif (self.inst_count == 43):
               self.root.title("Switching Modes")  
-              self.step_label.config(text = ts.instructions['i42'])
+              self.step_label.config(text = ts.instructions['i43'])
               self.inst_count +=1
             
         #done with object mode tutorial
         #start of edit mode tutorial
       
-         #check edit mode
-        elif (self.inst_count == 43):  
-            if self.progress['10'] == True:
-                  self.step_label.config(text = ts.instructions['i43'])
-                  self.inst_count += 1
-            else:
-                  self.errorPop("Change to edit mode to continue")
-      
+
         elif (self.inst_count == 44):  
               self.step_label.config(text = ts.instructions['i44'])
               self.inst_count +=1
-        elif (self.inst_count == 45): 
-              self.root.title("Vertices, Edges, and Faces") 
-              self.step_label.config(text = ts.instructions['i45'])
-              self.inst_count +=1
-        elif (self.inst_count == 46):
-              self.root.title("Selecting and Transforming in Edit Mode")  
-              self.step_label.config(text = ts.instructions['i46'])
-              self.inst_count +=1
-        #cube edited check
-        elif (self.inst_count == 47):  
-            if self.progress['11'] == True:
-                  self.step_label.config(text = ts.instructions['i47'])
+      
+         #check edit mode
+        elif (self.inst_count == 45):  
+            if self.progress['10'] == True:
+                  pygame.mixer.music.load("1.mp3")
+                  pygame.mixer.music.play(loops=0)
+                  self.step_label.config(text = ts.instructions['i45'])
                   self.inst_count += 1
             else:
-                  self.errorPop("Edit the cube to continue")
-        
-      #change selection mode check
-        elif (self.inst_count == 48):
-            self.root.title("Loop Select")  
-            if self.progress['12'] == True:
+                  pygame.mixer.music.load("2.mp3")
+                  pygame.mixer.music.play(loops=0)
+                  self.errorPop("Switch to Edit Mode to continue")
+       
+        elif (self.inst_count == 46): 
+              self.root.title("Vertices, Edges, and Faces") 
+              self.step_label.config(text = ts.instructions['i46'])
+              self.inst_count +=1
+      
+        elif (self.inst_count == 47):
+              self.root.title("Transforming in Edit Mode")   
+              self.step_label.config(text = ts.instructions['i47'])
+              self.inst_count +=1
+
+        elif (self.inst_count == 48): 
+              self.step_label.config(text = ts.instructions['i48'])
+              self.inst_count +=1
+    
+        #check for transformed vertices
+        elif (self.inst_count == 48):  
+            if self.progress['11'] == True:
+                  pygame.mixer.music.load("1.mp3")
+                  pygame.mixer.music.play(loops=0)
                   self.step_label.config(text = ts.instructions['i48'])
                   self.inst_count += 1
             else:
-                  self.errorPop("Change selection mode to continue")
+                  pygame.mixer.music.load("2.mp3")
+                  pygame.mixer.music.play(loops=0)
+                  self.errorPop("Transform the vertices to continue")
+        
         elif (self.inst_count == 49):  
               self.step_label.config(text = ts.instructions['i49'])
               self.inst_count +=1
+
+      #change selection mode check
         elif (self.inst_count == 50):
-              self.root.title("Proportional editing")  
-              self.step_label.config(text = ts.instructions['i50'])
-              self.inst_count +=1
+            self.root.title("Loop Select")  
+            if self.progress['12'] == True:
+                  pygame.mixer.music.load("1.mp3")
+                  pygame.mixer.music.play(loops=0)
+                  self.step_label.config(text = ts.instructions['i50'])
+                  self.inst_count += 1
+            else:
+                  pygame.mixer.music.load("2.mp3")
+                  pygame.mixer.music.play(loops=0)
+                  self.errorPop("Switch the selection mode to continue")
+  
         elif (self.inst_count == 51):  
+              self.root.title("Loop Select") 
               self.step_label.config(text = ts.instructions['i51'])
               self.inst_count +=1
+        
         elif (self.inst_count == 52):  
               self.step_label.config(text = ts.instructions['i52'])
               self.inst_count +=1
-      #proportional editing check
-        elif (self.inst_count == 53):  
-            if self.progress['13'] == True:
-                  self.step_label.config(text = ts.instructions['i53'])
-                  self.inst_count += 1
-            else:
-                  self.errorPop("Proportionally edit the cube to continue")
-
-      # geometry edited check
+        
+        elif (self.inst_count == 53):
+              self.root.title("Proportional Editing")  
+              self.step_label.config(text = ts.instructions['i53'])
+              self.inst_count +=1
+        
         elif (self.inst_count == 54):  
-            if self.progress['14'] == True:
-                  self.step_label.config(text = ts.instructions['i54'])
-                  self.inst_count += 1
-            else:
-                  self.errorPop("Edit the geometry to continue")
-        elif (self.inst_count == 55):
-              self.root.title("Proportional Editing Falloff")  
+              self.step_label.config(text = ts.instructions['i54'])
+              self.inst_count +=1
+              
+        elif (self.inst_count == 55):  
               self.step_label.config(text = ts.instructions['i55'])
               self.inst_count +=1
+  
+      #proportional editing check
         elif (self.inst_count == 56):  
-              self.step_label.config(text = ts.instructions['i56'])
-              self.inst_count +=1
-      # falloff set to sharp check
-        elif (self.inst_count == 57):  
-            if self.progress['15'] == True:
-                  self.step_label.config(text = ts.instructions['i57'])
+            if self.progress['13'] == True:
+                  pygame.mixer.music.load("1.mp3")
+                  pygame.mixer.music.play(loops=0)
+                  self.step_label.config(text = ts.instructions['i56'])
                   self.inst_count += 1
             else:
-                  self.errorPop("Set fall off to sharp to continue")
-        elif (self.inst_count == 58):
-              self.root.title("Extrude")  
+                  pygame.mixer.music.load("2.mp3")
+                  pygame.mixer.music.play(loops=0)
+                  self.errorPop("Turn on proportional editing to continue!")
+
+        elif (self.inst_count == 57):  
+              self.step_label.config(text = ts.instructions['i57'])
+              self.inst_count +=1
+              
+        elif (self.inst_count == 58):  
               self.step_label.config(text = ts.instructions['i58'])
               self.inst_count +=1
+    
+      # falloff set to sharp check
         elif (self.inst_count == 59):  
-              self.step_label.config(text = ts.instructions['i59'])
-              self.inst_count +=1
-      # geometry extruded check
-        elif (self.inst_count == 60):  
-            if self.progress['16'] == True:
-                  self.step_label.config(text = ts.instructions['i60'])
+            if self.progress['14'] == True:
+                  pygame.mixer.music.load("1.mp3")
+                  pygame.mixer.music.play(loops=0)
+                  self.step_label.config(text = ts.instructions['i59'])
                   self.inst_count += 1
             else:
-                  self.errorPop("Extrude the geometry to continue")
-        elif (self.inst_count == 61):
-              self.root.title("Inset Face")  
+                  pygame.mixer.music.load("2.mp3")
+                  pygame.mixer.music.play(loops=0)
+                  self.errorPop("Choose sharp fall off to continue")
+   
+        elif (self.inst_count == 60):
+              self.root.title("Extrude")  
+              self.step_label.config(text = ts.instructions['i60'])
+              self.inst_count +=1
+        
+        elif (self.inst_count == 61):  
               self.step_label.config(text = ts.instructions['i61'])
               self.inst_count +=1
+  
+      # geometry extruded check
         elif (self.inst_count == 62):  
-              self.step_label.config(text = ts.instructions['i62'])
-              self.inst_count +=1
-      #face inset check
-        elif (self.inst_count == 63):  
-            if self.progress['17'] == True:
-                  self.step_label.config(text = ts.instructions['i63'])
+            if self.progress['15'] == True:
+                  pygame.mixer.music.load("1.mp3")
+                  pygame.mixer.music.play(loops=0)
+                  self.step_label.config(text = ts.instructions['i62'])
                   self.inst_count += 1
             else:
-                  self.errorPop("Inset the face to continue")
-        elif (self.inst_count == 64):
-              self.root.title("Loop Cut")  
+                  pygame.mixer.music.load("2.mp3")
+                  pygame.mixer.music.play(loops=0)
+                  self.errorPop("Extrude the object to continue")
+    
+        elif (self.inst_count == 63): 
+              self.root.title("Inset Face")   
+              self.step_label.config(text = ts.instructions['i63'])
+              self.inst_count +=1
+              
+        elif (self.inst_count == 64):  
               self.step_label.config(text = ts.instructions['i64'])
               self.inst_count +=1
+  
+      #face inset check
         elif (self.inst_count == 65):  
-              self.step_label.config(text = ts.instructions['i65'])
-              self.inst_count +=1
-      #loop cut check
-        elif (self.inst_count == 66):  
-            if self.progress['18'] == True:
-                  self.step_label.config(text = ts.instructions['i66'])
+            if self.progress['16'] == True:
+                  pygame.mixer.music.load("1.mp3")
+                  pygame.mixer.music.play(loops=0)
+                  self.step_label.config(text = ts.instructions['i65'])
                   self.inst_count += 1
             else:
-                  self.errorPop("Loop cut to continue")
-        elif (self.inst_count == 67):
-              self.root.title("Bevel")  
+                  pygame.mixer.music.load("2.mp3")
+                  pygame.mixer.music.play(loops=0)
+                  self.errorPop("Inset a face of the object to continue")
+   
+        elif (self.inst_count == 66):  
+              self.step_label.config(text = ts.instructions['i66'])
+              self.inst_count +=1
+              
+        elif (self.inst_count == 67):  
+              self.root.title("Loop Cut") 
               self.step_label.config(text = ts.instructions['i67'])
               self.inst_count +=1
+              
         elif (self.inst_count == 68):  
               self.step_label.config(text = ts.instructions['i68'])
               self.inst_count +=1
+  
+      #loop cut check
         elif (self.inst_count == 69):  
-              self.step_label.config(text = ts.instructions['i69'])
-              self.inst_count +=1
-      #cube beveled check
-        elif (self.inst_count == 70):  
-            if self.progress['19'] == True:
-                  self.step_label.config(text = ts.instructions['i70'])
+            if self.progress['17'] == True:
+                  pygame.mixer.music.load("1.mp3")
+                  pygame.mixer.music.play(loops=0)
+                  self.step_label.config(text = ts.instructions['i69'])
                   self.inst_count += 1
             else:
-                  self.errorPop("Bevel the cube to continue")
+                  pygame.mixer.music.load("2.mp3")
+                  pygame.mixer.music.play(loops=0)
+                  self.errorPop("Use loop cut on the object to continue")
+  
+        elif (self.inst_count == 70): 
+              self.root.title("Bevel")  
+              self.step_label.config(text = ts.instructions['i70'])
+              self.inst_count +=1
+        
+        elif (self.inst_count == 71):  
+              self.step_label.config(text = ts.instructions['i71'])
+              self.inst_count +=1
+  
+      #cube beveled check
+        elif (self.inst_count == 72):  
+            if self.progress['18'] == True:
+                  pygame.mixer.music.load("1.mp3")
+                  pygame.mixer.music.play(loops=0)
+                  self.step_label.config(text = ts.instructions['i72'])
+                  self.inst_count += 1
+            else:
+                  pygame.mixer.music.load("2.mp3")
+                  pygame.mixer.music.play(loops=0)
+                  self.errorPop("Bevel the object to continue")
+       
+        elif (self.inst_count == 73):
+              self.root.title("Congratulations")    
+              self.step_label.config(text = ts.instructions['i73'])
+              self.inst_count +=1
 
     #function for error message
     def errorPop(self, message):
         self.root.title(" ")
         self.error_pop = Toplevel(self.root)
-        self.error_pop.geometry("200x120")
+        self.error_pop.geometry("100x60")
         self.error_pop.config(bg ="red")
-        self.error_label = Label(self.error_pop, text=message, bg="red", fg="white", wraplength=180, justify="center")
+        self.error_label = Label(self.error_pop, text=message, bg="red", fg="white", wraplength=75, justify="center")
         self.error_label.pack()
         self.error_pop.eval('tk::PlaceWindow . center')
         self.error_pop.pack()                 
@@ -500,33 +612,29 @@ class BlenderTutorial:
         if lastLine == "12_done": 
             self.progress['12'] = True
 
-        # geometry edited check
+        # proportional check
         if lastLine == "13_done": 
             self.progress['13'] = True
 
-        # geometry edited check
+        # falloff set to sharp check
         if lastLine == "14_done": 
             self.progress['14'] = True
 
-        #falloff set to sharp check
+        #Check for geometry extruded
         if lastLine == "15_done": 
             self.progress['15'] = True
 
-        # Check for geometry extruded
+        # Check for face inset
         if lastLine == "16_done": 
             self.progress['16'] = True
 
-        # Check for face inset
+        # Check for loop cut
         if lastLine == "17_done": 
             self.progress['17'] = True
 
-        # Check for loop cut
+        # Check for cube beveled
         if lastLine == "18_done": 
             self.progress['18'] = True
-
-        # Check for cube beveled
-        if lastLine == "19_done": 
-            self.progress['19'] = True
 
     def showMessage(self, msg, title):
         messagebox.showinfo(title=title, message=msg)
@@ -549,4 +657,4 @@ class BlenderTutorial:
     #function for progress bar
 
 if __name__ == "__main__":
-    BlenderTutorial("/Users/suchir/Downloads/SIP/Blender/Vivian/progress.txt")
+    BlenderTutorial("/Users/suchir/Downloads/SIP/Blender/Tutorial/progress.txt")

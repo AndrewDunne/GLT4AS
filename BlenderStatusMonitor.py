@@ -25,8 +25,7 @@ class BlenderStatusMonitor:
             '15': False,
             '16': False,
             '17': False,
-            '18': False,
-            '19': False,
+            '18': False
         }
         
         # initialize file
@@ -77,26 +76,21 @@ class BlenderStatusMonitor:
         
         step13_result = self.checkStep13()
         print("step13 result is: " + step13_result)
-
+        
         step14_result = self.checkStep14()
         print("step14 result is: " + step14_result)
-
+        
         step15_result = self.checkStep15()
         print("step15 result is: " + step15_result)
-
+        
         step16_result = self.checkStep16()
         print("step16 result is: " + step16_result)
-
+        
         step17_result = self.checkStep17()
         print("step17 result is: " + step17_result)
-
+        
         step18_result = self.checkStep18()
         print("step18 result is: " + step18_result)
-
-        step19_result = self.checkStep19()
-        print("step19 result is: " + step19_result)
-
-
         
         self.counter += 1
         if (self.counter >= self.max_count):
@@ -128,20 +122,18 @@ class BlenderStatusMonitor:
                 self.appendToFile(step11_result)
             if (step12_result != ""): 
                 self.appendToFile(step12_result)
-            if step13_result != "":
+            if (step13_result != ""): 
                 self.appendToFile(step13_result)
-            if step14_result != "":
+            if (step14_result != ""): 
                 self.appendToFile(step14_result)
-            if step15_result != "":
+            if (step15_result != ""): 
                 self.appendToFile(step15_result)
-            if step16_result != "":
+            if (step16_result != ""): 
                 self.appendToFile(step16_result)
-            if step17_result != "":
+            if (step17_result != ""): 
                 self.appendToFile(step17_result)
-            if step18_result != "":
+            if (step18_result != ""): 
                 self.appendToFile(step18_result)
-            if step19_result != "":
-                self.appendToFile(step19_result)
                     
             self.progress_file.close()
             return 2.0
@@ -159,6 +151,14 @@ class BlenderStatusMonitor:
             if obj.name == name:
                 return obj
         return None 
+    
+    #bmesh check
+    def findBMesh(self, name):
+        bm = None
+        obj = self.findObj(name)
+        if obj:
+            bm = bmesh.from_edit_mesh(obj)
+        return bm
     
     # status checks
     
@@ -252,15 +252,14 @@ class BlenderStatusMonitor:
     def checkStep9(self):
         result = ''
         if self.progress['8'] == True and self.progress['9'] == False:
-            cube = self.findObj('Cube')
-            if cube != None:
-                if len(bpy.data.objects.items()) == 5:
+            if len(bpy.data.objects.items()) == 4:
                     self.progress['9'] = True
                     result = "9_done"
         return result
     
     #change to edit mode check
     def checkStep10(self):
+        self.old_mesh = D.objects['Cube'].data.copy()
         result = ''
         if self.progress['9'] == True and self.progress['10'] == False:
             if bpy.context.mode == 'EDIT_MESH':
@@ -269,12 +268,23 @@ class BlenderStatusMonitor:
         return result
        
     #transformed vertices check working on it
+    
+#    def isTransformed(self, old, new):
+#        # 1. compare x/y/z of old and new
+#        # 2. if all the same return false
+#        # 3. else return true
+#       self.old =  
+        
     def checkStep11(self):
         result = ''
         if self.progress['10'] == True and self.progress['11'] == False:
-             #what to put
-                self.progress['11'] = True
-                result = "11_done"
+             cube = self.findBMesh('Cube')
+             if cube:
+                 for index, new_vert in enumerate(cube.verts):
+                     if self.isTransformed(self.old_mesh[index], new_vert):  
+                        self.progress['11'] = True
+                        result = "11_done"
+                        break
         return result
     
     #change selection mode check
@@ -285,91 +295,67 @@ class BlenderStatusMonitor:
                 self.progress['12'] = True
                 result = "12_done"
         return result
-        
-        #proportional editing check
+    
+    #proportional editing on check
     def checkStep13(self):
         result = ''
         if self.progress['12'] == True and self.progress['13'] == False:
-            if bpy.context.tool_settings.use_proportional_edit:
-                self.progress['13'] = True
-                result = "13_done"
+            if bpy.context.scene.tool_settings.use_proportional_edit == True:
+             self.progress['13'] = True
+             result = "13_done"
         return result
-
-    # geometry edited check
+     
+    #fall off sharp on check
     def checkStep14(self):
         result = ''
         if self.progress['13'] == True and self.progress['14'] == False:
-            #active_obj = bpy.context.active_object
-            #initial_vertices = [v.co.copy() for v in active_obj.data.vertices]
-            #edited_vertices = [v.co for v in active_obj.data.vertices]
-            #has_geometry_been_edited = any((iv != ev) for iv, ev in zip(initial_vertices, edited_vertices))
-            if True:
-                self.progress['14'] = True
-                result = "14_done"
+            if bpy.context.scene.tool_settings.proportional_edit_falloff == 'SHARP':
+             self.progress['14'] = True
+             result = "14_done"
         return result
-
-    # falloff set to sharp check
+    
+    #extrude check
     def checkStep15(self):
         result = ''
         if self.progress['14'] == True and self.progress['15'] == False:
-            if bpy.context.tool_settings.use_proportional_edit and bpy.context.tool_settings.proportional_edit_falloff == 'SHARP':
-                self.progress['15'] = True
-                result = "15_done"
+            cube = self.findObj('Cube')
+            if cube != None:
+                if cube.dimensions.x != 2.0 or cube.dimensions.y != 2.0 or cube.dimensions.z != 2.0:
+                    self.progress['15'] = True
+                    result = "15_done"
         return result
-
-    # geometry extruded check
+    
+    #working on it
+    #inset face check
     def checkStep16(self):
         result = ''
         if self.progress['15'] == True and self.progress['16'] == False:
-            #active_obj = bpy.context.active_object
-            #initial_vertex_count = len(active_obj.data.vertices)
-            #extruded_vertex_count = len(active_obj.data.vertices)
-            #has_geometry_been_extruded = extruded_vertex_count > initial_vertex_count
-            if True:
-                self.progress['16'] = True
-                result = "16_done"
+            cube = self.findBMesh('Cube')
+            if cube:
+                if cube:
+                    self.progress['16'] = True
+                    result = "16_done"
         return result
-
-    # face inset check
+    
+    #loop cut check
     def checkStep17(self):
         result = ''
         if self.progress['16'] == True and self.progress['17'] == False:
-            #active_obj = bpy.context.active_object
-            #selected_face = active_obj.data.polygons.active
-            #area_after_inset = selected_face.area
-            #has_face_been_inset = area_after_inset > 0.0
             if True:
                 self.progress['17'] = True
                 result = "17_done"
         return result
     
-    # loop cut check
+    # cube beveled check
     def checkStep18(self):
         result = ''
         if self.progress['17'] == True and self.progress['18'] == False:
-            #active_obj = bpy.context.active_object
-            #initial_edge_count = len(active_obj.data.edges)
-            #loop_cut_edge_count = len(active_obj.data.edges)
-            #has_loop_cut_been_made = loop_cut_edge_count > initial_edge_count
             if True:
                 self.progress['18'] = True
                 result = "18_done"
-        return result
-    
-    # cube beveled check
-    def checkStep19(self):
-        result = ''
-        if self.progress['18'] == True and self.progress['19'] == False:
-            #active_obj = bpy.context.active_object
-            #initial_vertex_count = len(active_obj.data.vertices)
-            #beveled_vertex_count = len(active_obj.data.vertices)
-            #has_cube_been_beveled = beveled_vertex_count > initial_vertex_count
-            if True:
-                self.progress['19'] = True
-                result = "19_done"
         return result
 
 
           
 if __name__ == "__main__":
-    BlenderStatusMonitor(1000, "/Users/suchir/Downloads/SIP/Blender/Vivian/progress.txt") 
+    BlenderStatusMonitor(1000, "/Users/suchir/Downloads/SIP/Blender/Tutorial/progress.txt") 
