@@ -1,90 +1,7 @@
 import bpy
 import bmesh
 import datetime
-
-#add on info
-bl_info = {
-    "name": "Basic Blender Tutorial",
-    "version": "(1, 0)",
-    "blender": "(3, 6, 0)",
-    "category": "Object",
-    "description": "A basic Blender tutorial for Blender Beginners"
-}
-
-#creates the UI panel
-class TutorialPanel(bpy.types.Panel):
-    
-    bl_label = "Blender Tutorial"
-    bl_idname = "Blender_Tutorial"
-    bl_space_type = "VIEW_3D"
-    bl_region_type = "UI"
-    bl_category = "Tutorial"
-    
-    def draw(self, context):
-        layout = self.layout
-        
-        row = layout.row()
-        scene = context.scene
-        myprop = scene.my_prop
-        row.label(text = "Enter Desired Time")
-        layout.prop(myprop, "time")
-        
-        row = layout.row()
-        row.label(text = "Enter File Location")
-        layout.prop(myprop, "file_location")
-        
-        row = layout.row()
-        row.operator("object.blender_execute", text="Start Tutorial")
-
-
-#class for properties
-class MyProperties(bpy.types.PropertyGroup):
-    
-    file_location: bpy.props.StringProperty(name = "", default="/users/vivian/Documents/blender/progress.txt")
-    
-    time: bpy.props.IntProperty(name = "", default=20, soft_min = 20, soft_max = 45)
-    
-    
-#class to execute blenderstatusmoniter    
-class BlenderExecute(bpy.types.Operator):
-    
-    bl_idname = "object.blender_execute"
-    bl_label = "Blender Execute"
-    
-    def execute(self, context):
-        self.report({'INFO'}, "Button clicked!, class run") 
-         
-        scene = context.scene
-        myprop = scene.my_prop
-        
-        #pulling data from panel
-        file =  myprop.file_location
-        min = myprop.time
-        
-        #convert min to number of intervals
-        def timeConversion(min):
-            seconds = min * 60
-            intervals = seconds // 2
-            return intervals
-        
-        intervals = timeConversion(min)
-        
-        BlenderStatusMonitor(intervals, file)
-        self.report({'INFO'}, "intervals: " + str(intervals) + " location is: " + file) 
-        return {'FINISHED'}
-
-        
-classes = (MyProperties, TutorialPanel, BlenderExecute)
-
-def register():
-    for cls in classes:
-        bpy.utils.register_class(cls)
-        bpy.types.Scene.my_prop = bpy.props.PointerProperty(type= MyProperties)
-    
-def unregister():
-    for cls in classes:
-        bpy.utils.unregister_class(cls)
-        del bpy.types.Scene.my_prop
+from . TutorialStrings import constants
                     
 class BlenderStatusMonitor:
         
@@ -432,3 +349,7 @@ class BlenderStatusMonitor:
                      self.progress['18'] = True
                      result = "18_done"
         return result 
+
+       
+if __name__ == "__main__":
+    BlenderStatusMonitor(1000, constants['default_file']) 
