@@ -1,8 +1,95 @@
 import bpy
+import bmesh
+import datetime
 
-class BlenderStatusMonitor:
+#add on info
+bl_info = {
+    "name": "Basic Blender Tutorial",
+    "version": "(1, 0)",
+    "blender": "(3, 6, 0)",
+    "category": "Object",
+    "description": "A basic Blender tutorial for Blender Beginners"
+}
+
+#creates the UI panel
+class TutorialPanel(bpy.types.Panel):
     
+    bl_label = "Blender Tutorial"
+    bl_idname = "Blender_Tutorial"
+    bl_space_type = "VIEW_3D"
+    bl_region_type = "UI"
+    bl_category = "Tutorial"
+    
+    def draw(self, context):
+        layout = self.layout
+        
+        row = layout.row()
+        scene = context.scene
+        myprop = scene.my_prop
+        row.label(text = "Enter Desired Time")
+        layout.prop(myprop, "time")
+        
+        row = layout.row()
+        row.label(text = "Enter File Location")
+        layout.prop(myprop, "file_location")
+        
+        row = layout.row()
+        row.operator("object.blender_execute", text="Start Tutorial")
+
+
+#class for properties
+class MyProperties(bpy.types.PropertyGroup):
+    
+    file_location: bpy.props.StringProperty(name = "", default="/users/vivian/Documents/blender/progress.txt")
+    
+    time: bpy.props.IntProperty(name = "", default=20, soft_min = 20, soft_max = 45)
+    
+    
+#class to execute blenderstatusmoniter    
+class BlenderExecute(bpy.types.Operator):
+    
+    bl_idname = "object.blender_execute"
+    bl_label = "Blender Execute"
+    
+    def execute(self, context):
+        self.report({'INFO'}, "Button clicked!, class run") 
+         
+        scene = context.scene
+        myprop = scene.my_prop
+        
+        #pulling data from panel
+        file =  myprop.file_location
+        min = myprop.time
+        
+        #convert min to number of intervals
+        def timeConversion(min):
+            seconds = min * 60
+            intervals = seconds // 2
+            return intervals
+        
+        intervals = timeConversion(min)
+        
+        BlenderStatusMonitor(intervals, file)
+        self.report({'INFO'}, "intervals: " + str(intervals) + " location is: " + file) 
+        return {'FINISHED'}
+
+        
+classes = (MyProperties, TutorialPanel, BlenderExecute)
+
+def register():
+    for cls in classes:
+        bpy.utils.register_class(cls)
+        bpy.types.Scene.my_prop = bpy.props.PointerProperty(type= MyProperties)
+    
+def unregister():
+    for cls in classes:
+        bpy.utils.unregister_class(cls)
+        del bpy.types.Scene.my_prop
+                    
+class BlenderStatusMonitor:
+        
     def __init__(self, max_count, filename) -> None:
+        print("function starts")
         self.counter = 0
         self.max_count = max_count
         self.filename = filename
@@ -39,7 +126,9 @@ class BlenderStatusMonitor:
      
         #check status
         step1_result = self.checkStep1()
-        print("step1 result is: " + step1_result)
+        now = datetime.datetime.now().strftime("%H:%M:%S")
+        
+        print(now + " step1 result is: " + step1_result)
         
         step2_result = self.checkStep2()
         print("step2 result is: " + step2_result)
@@ -157,7 +246,7 @@ class BlenderStatusMonitor:
         bm = None
         obj = self.findObj(name)
         if obj:
-            bm = bmesh.from_edit_mesh(obj)
+            bm = bmesh.from_edit_mesh(obj.data)
         return bm
     
     # status checks
@@ -258,8 +347,7 @@ class BlenderStatusMonitor:
         return result
     
     #change to edit mode check
-    def checkStep10(self):
-        self.old_mesh = D.objects['Cube'].data.copy()
+    def checkStep10(self): 
         result = ''
         if self.progress['9'] == True and self.progress['10'] == False:
             if bpy.context.mode == 'EDIT_MESH':
@@ -267,24 +355,11 @@ class BlenderStatusMonitor:
                 result = "10_done"
         return result
        
-    #transformed vertices check working on it
-    
-#    def isTransformed(self, old, new):
-#        # 1. compare x/y/z of old and new
-#        # 2. if all the same return false
-#        # 3. else return true
-#       self.old =  
-        
+    #transformed vertices check is a flop, make it default true for now
     def checkStep11(self):
         result = ''
         if self.progress['10'] == True and self.progress['11'] == False:
-             cube = self.findBMesh('Cube')
-             if cube:
-                 for index, new_vert in enumerate(cube.verts):
-                     if self.isTransformed(self.old_mesh[index], new_vert):  
-                        self.progress['11'] = True
-                        result = "11_done"
-                        break
+             result = "11_done"
         return result
     
     #change selection mode check
@@ -300,18 +375,18 @@ class BlenderStatusMonitor:
     def checkStep13(self):
         result = ''
         if self.progress['12'] == True and self.progress['13'] == False:
-        if bpy.context.scene.tool_settings.use_proportional_edit == True:
-             self.progress['13'] = True
-             result = "13_done"
+            if bpy.context.scene.tool_settings.use_proportional_edit == True:
+                self.progress['13'] = True
+                result = "13_done"
         return result
      
     #fall off sharp on check
     def checkStep14(self):
         result = ''
         if self.progress['13'] == True and self.progress['14'] == False:
-        if  bpy.context.scene.tool_settings.proportional_edit_falloff == 'SHARP':
-             self.progress['14'] = True
-             result = "14_done"
+            if  bpy.context.scene.tool_settings.proportional_edit_falloff == 'SHARP':
+                self.progress['14'] = True
+                result = "14_done"
         return result
     
     #extrude check
@@ -325,27 +400,35 @@ class BlenderStatusMonitor:
                     result = "15_done"
         return result
     
-    #working on it
     #inset face check
     def checkStep16(self):
         result = ''
         if self.progress['15'] == True and self.progress['16'] == False:
             cube = self.findBMesh('Cube')
             if cube:
-                if cube:
+                if len(cube.faces) != 6:
                     self.progress['16'] = True
                     result = "16_done"
         return result
-    
+
     #loop cut check
     def checkStep17(self):
         result = ''
         if self.progress['16'] == True and self.progress['17'] == False:
              cube = self.findBMesh('Cube')
              if cube:
-                 
+                 if len(cube.edges) != 12:
+                     self.progress['17'] = True
+                     result = "17_done"
+        return result 
      
     #bevel check
-          
-if __name__ == "__main__":
-    BlenderStatusMonitor(1000, "/users/vivian/Documents/blender/progress.txt") 
+    def checkStep18(self):
+        result = ''
+        if self.progress['17'] == True and self.progress['18'] == False:
+             cube = self.findBMesh('Cube')
+             if cube:
+                 if len(cube.edges) != 12 and len(cube.faces) != 6:
+                     self.progress['18'] = True
+                     result = "18_done"
+        return result 
