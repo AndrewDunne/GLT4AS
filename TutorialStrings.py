@@ -1,7 +1,3 @@
-steps = {
-    1: ""
-}
-
 instructions = {
     'i1': "Welcome to Blender! Blender is a 3D modeling software, which means you can use it to create 3D objects, simulate 3D scenes, make art, etc. In this tutorial, you’ll learn the basics of controlling the software and how to make your own simple objects!",
     'i2':"To start, let’s explain what’s on screen. The main window is called the 3D viewport. This is where you see the 3D scene, and all of the objects inside of it. You start with a cube, light, and camera but for this tutorial, the cube will not be present yet ",
@@ -80,22 +76,22 @@ instructions = {
     'i58': "To change the shape of proportional editing, click the dark bump icon to the right of the proportional editing icon to change its ‘falloff curve’. It’s using the ‘smooth’ curve by default, but the ‘sharp’ curve provides a nice contrast! Try out the sharp falloff setting.",
     #fall off sharp check
     'i59': "Now you know how to use proportional editing and its settings!",
-    'i60': "Edit mode also gives you many new tools for adding geometry to a mesh. One of the simplest and most useful is the ‘Extrude’ tool.",
+    'i60': "Clear the scene and add a new cube! Edit mode gives you many new tools for adding geometry to a mesh. One of the simplest and most useful is the ‘Extrude’ tool.",
     'i61': "This can be found on the left-hand toolbar, or you can quickly extrude by pressing the E key after selecting geometry. See what happens when you extrude vertices, edges, and faces!",
     #geometry extruded check
     'i62': "Awesome Job extruding!",
-    'i63': "Edit mode’s ‘Inset Face’ tool is a great partner to the extrude tool.",
-    'i64': "With a face selected, find the inset face icon in the left toolbar, or press the i key to begin the action. A smaller face will appear inside the selected one, and you can move your cursor to change its size. Try using i to inset a face on the cube!",
+    'i63': "Clear the scene and add a Cube. Edit mode’s ‘Inset Face’ tool is a great partner to the extrude tool.",
+    'i64': "With a face selected, find the inset face icon in the left toolbar, or press the i key to begin the action. A smaller face will appear inside the selected one, and you can move your cursor to change its size. Try to inset a face on the cube!",
     #face inset check
     'i65': "You just used inset! Nice!",
     'i66': "This is great to use with extrude, because adding the extra geometry gives you new faces to extrude from. For example, extruding up the center from the top face of a cube could give you the stem for a (very blocky) apple!",
     #loop cut starts here
-    'i67': "Another useful tool in edit mode is ‘loop cut’. The loop cut tool adds a loop of edges around a mesh, giving you the geometry you need to add finer details!",
-    'i68': "To start a loop cut, find its icon on the left toolbar or use the hotkey Ctrl+R, then move your cursor over the mesh until you see a yellow line wrap around the mesh. Left click to confirm the loop, and then slide the loop around with your mouse until you’re happy with its position, and then click again to place the loop. Try making a loop cut around the cylinder.",
+    'i67': "Clear the scene again and add a cube. Another useful tool is ‘loop cut’. The loop cut tool adds a loop of edges around a mesh, giving you the geometry you need to add finer details!",
+    'i68': "To start a loop cut, find its icon on the left toolbar or use the hotkey Ctrl+R, then move your cursor over the mesh until you see a yellow line wrap around the mesh. Left click to confirm the loop, and then slide the loop around with your mouse until you’re happy with its position, and then click again to place the loop. Try making a loop cut around the cube",
     #loop cut check
     'i69': "Good job experimenting with loop cut! If you ever need more geometry to add details, loop cut is your friend.",
     #bevel starts here
-    'i70': "Finally, if you want to add a bit of style to your meshes’ edges, the bevel tool is for you.",
+    'i70': "Clear the scene and add a cube one last time. If you want to add a bit of style to your meshes’ edges, the bevel tool is for you.",
     'i71': "Select one or more edges in edit mode, then click the bevel icon in the toolbar, or use the hotkey Ctrl+B. The bevel tool will split the selected edges into faces, making the transition between larger faces less hard.",
     #Cube beveled check
     'i72': "Good job learning how to bevel!",
