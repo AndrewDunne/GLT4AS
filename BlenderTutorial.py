@@ -597,4 +597,4 @@ class BlenderTutorial:
     #function for progress bar
 
 if __name__ == "__main__":
-    BlenderTutorial("/users/vivian/Documents/blender/progress.txt")
+    BlenderTutorial(ts.constants['default_file'])
